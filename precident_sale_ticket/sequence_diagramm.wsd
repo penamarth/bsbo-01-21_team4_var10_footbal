@@ -1,0 +1,8 @@
+@startuml precident_sale
+scale 2
+
+
+actor User
+User -> SaleSystem : getAllMatches()
+User <- SaleSystem : int[]
+@enduml

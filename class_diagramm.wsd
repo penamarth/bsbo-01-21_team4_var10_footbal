@@ -1,0 +1,31 @@
+@startuml precident_sale
+scale 2
+class Stadion {
+
+}
+class Match
+class Ticket
+class Sale
+class SaleSystem {
+    -stadions: Stadion[]
+    -payments: PaymentSystem
+    -addsales: Sale[]
+    +getAllMatches() : Match[]
+    +createPurchase (match_id: int, place_id: []int): int
+    +Pay(purches_id: int) : bool
+    +createUser(firstname: string, lastname: string,pasport: string): int, bool
+
+}
+class User
+interface PaymentSystem
+
+Match --* Stadion
+Stadion --* SaleSystem
+
+Sale o-left- Ticket
+SaleSystem *-left- Sale
+User --* SaleSystem
+User -down-{ Sale
+PaymentSystem -down-* SaleSystem
+
+@enduml
