@@ -1,0 +1,20 @@
+@startuml precident_sale
+scale 2
+class Stadion
+class Match
+class Ticket
+class Sale
+class SaleSystem
+class User
+interface PaymentSystem
+
+Match --* Stadion
+Stadion --* SaleSystem
+
+Sale o-left- Ticket
+Ticket }-left- User
+SaleSystem *-left- Sale
+User --* SaleSystem
+PaymentSystem -down-* SaleSystem
+
+@enduml
