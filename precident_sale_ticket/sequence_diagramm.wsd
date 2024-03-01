@@ -4,5 +4,17 @@ scale 2
 
 actor User
 User -> SaleSystem : getAllMatches()
-User <- SaleSystem : int[]
+SaleSystem -> Stadion : GetAllMatchesInfo()
+Stadion -> Match : GetInfo()
+Stadion <- Match : MatchInfo
+SaleSystem <- Stadion : []MatchInfo
+User <- SaleSystem : []MatchInfo
+User -> SaleSystem : createPurchase(match_id, place_id)
+User <- SaleSystem : purchase_id
+User -> SaleSystem : Pay(purchase_id) 
+SaleSystem -> PaymentSystem : PayPaymentSystem(card_id, cost, purchase_id)
+SaleSystem <- PaymentSystem : comment
+SaleSystem -> SaleSystem : changeStatus(purchase_id, ok)
+SaleSystem -> Match : ChangePlaceStatus(places)
+
 @enduml

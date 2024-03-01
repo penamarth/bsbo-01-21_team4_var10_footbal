@@ -1,22 +1,36 @@
 @startuml precident_sale
 scale 2
 class Stadion {
-
+    -matches Match[]
+    +GetAllMatchesInfo() MatchInfo[]
 }
-class Match
+class Match {
+    -places []int
+    -matchDate date
+    +getFreePlaces() []int, error
+    +ChangePlaceStatus(places int[]) error
+    +GetInfo() MatchInfo
+}
 class Ticket
 class Sale
 class SaleSystem {
     -stadions: Stadion[]
     -payments: PaymentSystem
     -addsales: Sale[]
-    +getAllMatches() : Match[]
-    +createPurchase (match_id: int, place_id: []int): int
-    +Pay(purches_id: int) : bool
-    +createUser(firstname: string, lastname: string,pasport: string): int, bool
-
+    -changeStatus(purchase_id : int, status : bool) error
+    +getAllMatches() : []MatchInfo, error
+    +createPurchase (match_id: int, place_id: []int): int, error
+    +Pay(purches_id: int) : error
+    +createUser(firstname: string, lastname: string,pasport: string): int, error
+    +PayPaymentSystem(card_id : int, cost : int, purchase_id : int) : string, error
 }
 class User
+struct MatchInfo {
+    Name: string
+    Date: date
+    Commands: []string
+    FreePlaces: []int
+}
 interface PaymentSystem
 
 Match --* Stadion
